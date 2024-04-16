@@ -1,4 +1,85 @@
 .detail{
     flex: 1;
+    .icon{
+        width: 30px;
+        height: 30px;
+        background-color: #fff;
+        padding: 8px;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.664);
     
+        cursor: pointer;
+    }
+}
+   .user{
+padding: 30px 20px ;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 20px;
+border-bottom: 1px solid #ffffff5b;
+img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+    }
+.info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  &__option{
+
+    &_title{
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+    }
+
+  }
+  button{
+    background-color: rgba(167, 34, 34, 0.719);
+    color: white;
+    padding: 10px 20px ;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    &:hover{
+        background-color: rgb(192, 5, 5);
+
+    }
+  }
+}
+
+.photos {
+margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+    &__item{
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+        &_detail{
+            display: flex;
+align-items: center;
+gap: 20px;
+img{
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    object-fit: cover;
+
+}
+span{
+    font-size: 14px;
+    font-weight: 300;
+
+}
+        }
+    }
 }
