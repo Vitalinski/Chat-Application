@@ -1,4 +1,6 @@
 .chat{
+    display: flex;
+    flex-direction: column;
     flex: 2;
     border-left: 1px solid #ffffff5b;
     border-right: 1px solid #ffffff5b;
@@ -47,6 +49,8 @@
 }
 }
 .center {
+  padding: 20px;
+  flex: 1;
   
 }
 .bottom {
@@ -75,6 +79,14 @@ img{
     width: 20px;
     height: 20px;
     cursor: pointer;
+}
+&__emoji {
+  position: relative;
+    &_picker {
+      position: absolute;
+      bottom: 50px;
+      left: 0px;
+    }
 }
 &__btn{
     background-color: rgba(49, 49, 49, 0.6117647059);;
