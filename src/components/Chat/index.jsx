@@ -1,7 +1,7 @@
 import { useState } from "react"
 import styles from  "./Chat.module.scss"
 import EmojiPicker from "emoji-picker-react"
-
+import classNames from "classnames"
 const Chat = () => {
   const [open, setOpen] = useState(false)
   const [text, setText] = useState('')
@@ -26,7 +26,48 @@ const Chat = () => {
 
       </div>
       </div>
-      <div className={styles.center}></div>
+      <div className={styles.center}>
+      <div className={classNames(styles.center__message, styles.center__message_own)}>
+<div className={styles.center__message_texts}>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In, minima! Some message text</p>
+<span>1 min ago</span>
+
+</div>
+
+</div>
+
+<div className={styles.center__message}>
+<img src="./avatar.png" alt="" />
+<div className={styles.center__message_texts}>
+<p>Some message text</p>
+<span>1 min ago</span>
+
+</div>
+
+</div>
+
+<div className={classNames(styles.center__message, styles.center__message_own)}>
+<div className={styles.center__message_texts}>
+<img src="./background.avif" alt="" />
+
+<p>Some message text Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, earum? dsfdsfsdfdsfsdfdsfsdf</p>
+<span>1 min ago</span>
+
+</div>
+
+</div>
+
+<div className={styles.center__message }>
+<img src="./avatar.png" alt="" />
+<div className={styles.center__message_texts}>
+<p>Some message text</p>
+<span>1 min ago</span>
+
+</div>
+
+</div>
+
+      </div>
       <div className={styles.bottom}>
       <div className={styles.bottom__icons}>
    <img src="./img.png" alt="" />

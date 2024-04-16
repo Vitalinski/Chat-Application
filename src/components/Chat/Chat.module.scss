@@ -51,7 +51,50 @@
 .center {
   padding: 20px;
   flex: 1;
-  
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  &__message{
+    max-width: 70%;
+    display: flex;
+    gap: 20px;
+    img{
+width: 30px;
+height: 30px;
+border-radius: 50%;
+object-fit: cover;
+
+    }
+    &_texts{
+display: flex;
+flex-direction: column;
+gap: 5px;
+img{
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+p{
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.664);
+    color: #fff;
+}
+span{
+    font-size: 12px;
+}
+    }
+    &_own{
+        align-self: flex-end;
+        p{
+            background-color: #ffffff9c;
+            color: black;
+
+        }
+    }
+  }
 }
 .bottom {
   padding: 20px;
