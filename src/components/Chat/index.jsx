@@ -20,7 +20,19 @@ const Chat = () => {
       </div>
       </div>
       <div className={styles.center}></div>
-      <div className={styles.bottom}></div>
+      <div className={styles.bottom}>
+      <div className={styles.bottom__icons}>
+   <img src="./img.png" alt="" />
+   <img src="./camera.png" alt="" />
+   <img src="./mic.png" alt="" />
+
+      </div>
+        <input type="text" placeholder="Type a message..." />
+        <div className={styles.bottom__emoji}>
+          <img src="./emoji.png" alt="" />
+        </div>
+<button className={styles.bottom__btn}>Send</button>
+      </div>
 
     </div>
   )
