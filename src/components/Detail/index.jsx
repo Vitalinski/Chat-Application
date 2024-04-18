@@ -76,6 +76,8 @@ const Detail = () => {
     </div>
 
 <button>Block User</button>
+<button className={styles.logout}>Log out</button>
+
     </div>
     </div>
   )
