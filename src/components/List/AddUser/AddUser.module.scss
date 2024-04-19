@@ -3,7 +3,7 @@
     width: max-content;
     height: max-content;
   padding: 30px;
-  background-color:  #cfceced2;
+  background-color:  #cfcecee1;
   border-radius: 10px;
   position: absolute;
   top: 0;
@@ -15,10 +15,11 @@
     display: flex;
     gap: 20px;
     input{
-        padding: 20px;
+        padding: 10px;
         border-radius: 10px;
         bottom: none;
         outline: none;
+        background-color:  #f7f0f0;
     }
     button{
         background-color: rgba(49, 49, 49, 0.6117647059);;
