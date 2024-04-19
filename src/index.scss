@@ -20,7 +20,7 @@ body{
   align-items: center;
   justify-content: center;
   height: 100vh;
-  overflow: hidden;
+  
   
 }
 .container{
@@ -32,4 +32,12 @@ backdrop-filter: blur(19px) saturate(180%);
 border: 1px solid #ffffff5b;
 box-shadow: 0px 0px 50px 1px rgba(255, 255, 255, 0.719);
 display: flex;
+}
+.loading{
+  padding: 30px;
+  background-color: #ffffff9c;
+  border-radius: 10px;
+  font-size: 32px;
+  font-weight: bold;
+
 }
