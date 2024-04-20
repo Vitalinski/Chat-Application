@@ -1,69 +1,60 @@
-import { useState } from 'react'
-import styles from './ChatList.module.scss'
-import AddUser from '../AddUser'
+import { useEffect, useState } from "react";
+import styles from "./ChatList.module.scss";
+import AddUser from "../AddUser";
+import { useUserStore } from "../../../lib/userStore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { db } from "../../../lib/firebase";
 
 const ChatList = () => {
-  const [addMode, setAddMode] = useState(false)
+  const [addMode, setAddMode] = useState(false);
+  const [chats, setChats] = useState([]);
+
+  const { currentUser } = useUserStore();
+  useEffect(() => {
+    const unSub = onSnapshot(
+      doc(db, "userchats", currentUser.id),
+      async (res) => {
+        const items = res.data().chats;
+
+        const promises = items.map(async (item) => {
+          const userDocRef = doc(db, "users", item.receiverId);
+          const userDocSnap = await getDoc(userDocRef);
+          const user = userDocSnap.data();
+          return { ...item, user };
+        });
+        const chatData = await Promise.all(promises);
+        setChats(chatData.sort((a, b) => navigator.updatedAt - a.updatedAt));
+      }
+    );
+    return () => unSub();
+  }, [currentUser.id]);
   return (
     <div className={styles.chatList}>
       <div className={styles.search}>
         <div className={styles.searchBar}>
           <img src="/search.png" alt="" />
-          <input type="text" placeholder='Search...' />
+          <input type="text" placeholder="Search..." />
         </div>
-        <img src={addMode?"./minus.png":"./plus.png"} onClick={()=>setAddMode(!addMode)} alt="" className={styles.add} />
+        <img
+          src={addMode ? "./minus.png" : "./plus.png"}
+          onClick={() => setAddMode(!addMode)}
+          alt=""
+          className={styles.add}
+        />
       </div>
+      {chats.map((chat) => (
+        <div className={styles.item} key={chat.chatId}>
+          <img src={chat.user.avatar||"./avatar.png"} alt="" />
+          <div className={styles.texts}>
+            <span>{chat.user.username}</span>
+            <p>{chat.lastMessage}</p>
+          </div>
+        </div>
+      ))}
 
-      <div className={styles.item}>
-        <img src="./avatar.png" alt="" />
-        <div className={styles.texts}>
-          <span>Some Friend</span>
-          <p>Hello</p>
-        </div>
-      </div>
-
-      <div className={styles.item}>
-        <img src="./avatar.png" alt="" />
-        <div className={styles.texts}>
-          <span>Some Friend</span>
-          <p>Hello</p>
-        </div>
-      </div>
-
-      <div className={styles.item}>
-        <img src="./avatar.png" alt="" />
-        <div className={styles.texts}>
-          <span>Some Friend</span>
-          <p>Hello</p>
-        </div>
-      </div>
-
-      <div className={styles.item}>
-        <img src="./avatar.png" alt="" />
-        <div className={styles.texts}>
-          <span>Some Friend</span>
-          <p>Hello</p>
-        </div>
-      </div>
-
-      <div className={styles.item}>
-        <img src="./avatar.png" alt="" />
-        <div className={styles.texts}>
-          <span>Some Friend</span>
-          <p>Hello</p>
-        </div>
-      </div>
-      <div className={styles.item}>
-        <img src="./avatar.png" alt="" />
-        <div className={styles.texts}>
-          <span>Some Friend</span>
-          <p>Hello</p>
-        </div>
-      </div>
-     {addMode && <AddUser/>} 
-
+      {addMode && <AddUser />}
     </div>
-  )
-}
+  );
+};
 
-export default ChatList
+export default ChatList;
