@@ -112,6 +112,10 @@ span{
     border-radius: 10px;
 color: #3b3b3bd7;
 background-color: #ffffff5b;
+&:disabled{
+    cursor: not-allowed;
+  
+  }
 
   }
 &__icons{
@@ -138,5 +142,10 @@ img{
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    &:disabled{
+        background-color: rgba(97, 97, 97, 0.267);
+        cursor: not-allowed;
+      
+      }
 }
 }
