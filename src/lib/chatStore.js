@@ -32,7 +32,7 @@ export const useChatStore = create((set) => ({
     else{
       return set({
         chatId,
-        user: null,
+        user,
         isCurrentUserBlocked: false,
         isReceiverBlocked: true,
       });
