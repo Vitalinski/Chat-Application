@@ -3,7 +3,7 @@ import styles from "./Login.module.scss";
 import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../lib/firebase.js";
-import { doc, setDoc } from "firebase/firestore";
+import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import upload from "../../lib/unload.js";
 const Login = () => {
   const [avatar, setAvatar] = useState({
@@ -38,8 +38,27 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     const formData = new FormData(e.target);
+
     const { username, description, email, password } = Object.fromEntries(formData);
+   
     try {
+      if (!username || !email || !password || !description)
+      return toast.warn("Please enter inputs!");
+    if (!avatar.file) return toast.warn("Please upload an avatar!");
+
+    const usersRef = collection(db, "users");
+    const q = query(usersRef, where("username", "==", username));
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      return toast.warn("Select another username");
+    }
+    
+    const qEmail = query(usersRef, where("email", "==", email));
+    const querySnapshotEmail = await getDocs(qEmail);
+    if (!querySnapshotEmail.empty) {
+      return toast.warn("Select another email");
+    }
+
       const res = await createUserWithEmailAndPassword(auth, email, password);
       const imgUrl = await upload(avatar.file);
       await setDoc(doc(db, "users", res.user.uid), {
