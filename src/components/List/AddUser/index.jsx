@@ -1,8 +1,9 @@
-import { arrayUnion, collection,  doc,  getDocs, query, serverTimestamp, setDoc, updateDoc, where } from 'firebase/firestore'
+import { arrayUnion, collection,  doc,  getDoc,  getDocs, query, serverTimestamp, setDoc, updateDoc, where } from 'firebase/firestore'
 import styles from './AddUser.module.scss'
 import { db } from '../../../lib/firebase'
 import { useState } from 'react'
 import { useUserStore } from '../../../lib/userStore'
+import { toast } from 'react-toastify'
 
 const AddUser = () => {
   const [user, setUser] =  useState(null)
@@ -29,6 +30,19 @@ console.log(err)
     const userChatsRef = collection(db, "userchats");
 
     try {
+
+      const userChatSnapshot = await getDoc(doc(userChatsRef, currentUser.id));
+      const userChatData = userChatSnapshot.data();
+      if (userChatData) {
+        const existingChat = userChatData.chats.find(chat => chat.receiverId === user.id);
+        if (existingChat) {
+          toast.warning("Chat with this user already exists.");
+
+          return; 
+        }
+      }
+
+
       const newChatRef = doc(chatRef);
 
       await setDoc(newChatRef, {

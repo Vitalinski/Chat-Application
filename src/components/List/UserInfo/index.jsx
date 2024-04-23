@@ -1,8 +1,12 @@
+import { useChatStore } from '../../../lib/chatStore'
+import { auth } from '../../../lib/firebase'
 import { useUserStore } from '../../../lib/userStore'
 import styles from './UserInfo.module.scss'
 
 const UserInfo = () => {
   const {currentUser} = useUserStore()
+  const {chatId} = useChatStore()
+
   return (
     <div className={styles.userInfo}>
         <div className={styles.user}>
@@ -10,12 +14,16 @@ const UserInfo = () => {
         <h2>{currentUser.username}</h2>
 
         </div>
-        <div className={styles.icons}>
+
+        {!chatId?<button onClick={()=> auth.signOut()}>Log out</button>: <div className={styles.icons}>
           <img src="./more.png" alt="" />
           <img src="./video.png" alt="" />
           <img src="./edit.png" alt="" />
 
         </div>
+
+        }
+       
 
     </div>
   )

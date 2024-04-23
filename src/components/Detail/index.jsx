@@ -5,7 +5,7 @@ import { useUserStore } from "../../lib/userStore";
 import styles from "./Detail.module.scss";
 
 const Detail = () => {
-  const { chatId, user, isCurrentUserBlocked, isReceiverBlocked, changeBlock } =
+  const { chatId, user, isCurrentUserBlocked, isReceiverBlocked, changeBlock, resetChat } =
     useChatStore();
   const { currentUser } = useUserStore();
   const handleBlock = async () => {
@@ -19,6 +19,10 @@ const Detail = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+  const handleLogout = () => {
+    auth.signOut();
+    resetChat()
   };
   return (
     <div className={styles.detail}>
@@ -108,7 +112,7 @@ const Detail = () => {
             ? "User blocked"
             : "Block user"}
         </button>
-        <button className={styles.logout} onClick={() => auth.signOut()}>
+        <button className={styles.logout} onClick={handleLogout}>
           Log out
         </button>
       </div>
