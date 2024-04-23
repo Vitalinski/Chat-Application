@@ -11,8 +11,12 @@ const UserInfo = () => {
     <div className={styles.userInfo}>
         <div className={styles.user}>
         <img src={currentUser.avatar||"./avatar.png"} alt="" />
-        <h2>{currentUser.username}</h2>
+        <div>
 
+        <h2>{currentUser.username}</h2>
+        <p>{currentUser.description}</p>
+
+</div>
         </div>
 
         {!chatId?<button onClick={()=> auth.signOut()}>Log out</button>: <div className={styles.icons}>

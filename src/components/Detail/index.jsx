@@ -29,7 +29,7 @@ const Detail = () => {
       <div className={styles.user}>
         <img src={user?.avatar || "./avatar.png"} alt="" />
         <h2>{user?.username}</h2>
-        <p>User description information</p>
+        <p>{user?.description}</p>
       </div>
       <div className={styles.info}>
         <div className={styles.info__option}>

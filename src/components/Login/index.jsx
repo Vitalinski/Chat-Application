@@ -33,16 +33,18 @@ const Login = () => {
       setLoading(false);
     }
   };
+
   const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
     const formData = new FormData(e.target);
-    const { username, email, password } = Object.fromEntries(formData);
+    const { username, description, email, password } = Object.fromEntries(formData);
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       const imgUrl = await upload(avatar.file);
       await setDoc(doc(db, "users", res.user.uid), {
         username,
+        description,
         email,
         avatar: imgUrl,
         id: res.user.uid,
@@ -86,7 +88,8 @@ const Login = () => {
             onChange={handleAvatar}
           />
 
-          <input type="text" placeholder="Username" name="username" />
+          <input type="text" placeholder="Username" name="username" maxLength={18}/>
+          <input type="text" placeholder="User description" name="description" maxLength={18} />
           <input type="text" placeholder="Email" name="email" />
           <input type="text" placeholder="Password" name="password" />
           <button disabled={loading}>

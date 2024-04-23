@@ -95,7 +95,7 @@ const Chat = () => {
           <img src={user?.avatar || "./avatar.png"} alt="" />
           <div className={styles.top__texts}>
             <span>{user?.username}</span>
-            <p>Sample user description</p>
+            <p>{user?.description}</p>
           </div>
         </div>
         <div className={styles.top__icons}>
