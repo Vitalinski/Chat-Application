@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useUserStore } from '../../../lib/userStore'
 import { toast } from 'react-toastify'
 
-const AddUser = () => {
+const AddUser = ({setAddMode}) => {
   const [user, setUser] =  useState(null)
   const { currentUser } = useUserStore();
   const handleSearch = async(e) =>{
@@ -75,6 +75,7 @@ console.log(err)
   return (
     <div className={styles.addUser}>
         <form onSubmit={handleSearch}>
+          <button type='button' className={styles.close} onClick={()=>setAddMode(false)}>x</button>
             <input type="text" placeholder='Username' name='username' />
             <button>Search</button>
         </form>

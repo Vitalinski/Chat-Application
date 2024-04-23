@@ -2,7 +2,7 @@
 .addUser {
     width: max-content;
     height: max-content;
-  padding: 30px;
+  padding: 40px;
   background-color:  #cfcecee1;
   border-radius: 10px;
   position: absolute;
@@ -11,6 +11,14 @@
   left: 0;
   right: 0;
   margin: auto;
+  .close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px 10px;
+    background-color: rgb(54, 48, 48);
+    font-weight: bold;
+  }
   form{
     display: flex;
     gap: 20px;
