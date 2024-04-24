@@ -5,6 +5,17 @@
     border-left: 1px solid #ffffff5b;
     border-right: 1px solid #ffffff5b;
     height: 100%;
+    @media screen and (max-width:1224px) {
+  .center__message_texts {
+
+    img{
+        width: 200px;
+        height: 200px;
+    }
+       
+  
+}     
+    }
 }
 .top {
   padding: 20px;
@@ -59,13 +70,7 @@
     max-width: 70%;
     display: flex;
     gap: 20px;
-    img{
-width: 30px;
-height: 30px;
-border-radius: 50%;
-object-fit: cover;
 
-    }
     &_texts{
 display: flex;
 flex-direction: column;
@@ -81,6 +86,7 @@ p{
     border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.664);
     color: #fff;
+    word-wrap: anywhere;
 }
 span{
     font-size: 12px;

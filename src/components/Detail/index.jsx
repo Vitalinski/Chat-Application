@@ -35,14 +35,14 @@ const Detail = () => {
         <div className={styles.info__option}>
           <div className={styles.info__option_title}>
             <span>Chat Settings</span>
-            <img src="./arrowUp.png" alt="" className={styles.icon} />
+            <img src="./arrowDown.png" alt="" className={styles.icon} />
           </div>
         </div>
 
         <div className={styles.info__option}>
           <div className={styles.info__option_title}>
             <span>Privacy and help</span>
-            <img src="./arrowUp.png" alt="" className={styles.icon} />
+            <img src="./arrowDown.png" alt="" className={styles.icon} />
           </div>
         </div>
 
@@ -101,7 +101,7 @@ const Detail = () => {
         <div className={styles.info__option}>
           <div className={styles.info__option_title}>
             <span>Shared Files</span>
-            <img src="./arrowUp.png" alt="" className={styles.icon} />
+            <img src="./arrowDown.png" alt="" className={styles.icon} />
           </div>
         </div>
 

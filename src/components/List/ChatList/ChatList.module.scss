@@ -22,6 +22,9 @@ padding: 10px;
   outline: none;
   color: white;
   flex: 1;
+  @media screen and (max-width:500px){
+    width: 100px;
+  }
 }
  img{
   width: 20px;
@@ -39,6 +42,7 @@ padding: 10px;
 .item {
   display: flex;
   align-items: center;
+  width: 100%;
   gap: 20px;
   padding: 20px;
   border-bottom: 1px solid #ffffff5b;
@@ -59,9 +63,14 @@ padding: 10px;
 
     }
     p{
+      
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 20vw;
       font-size: 14px;
       font-weight: 300;
     }
   
 }
 }
+

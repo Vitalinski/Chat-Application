@@ -20,8 +20,8 @@ const UserInfo = () => {
         </div>
 
         {!chatId?<button onClick={()=> auth.signOut()}>Log out</button>: <div className={styles.icons}>
-          <img src="./more.png" alt="" />
-          <img src="./video.png" alt="" />
+          {/* <img src="./more.png" alt="" /> */}
+          {/* <img src="./video.png" alt="" /> */}
           <img src="./edit.png" alt="" />
 
         </div>
