@@ -62,7 +62,7 @@ const Login = () => {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       const imgUrl = await upload(avatar.file);
       await setDoc(doc(db, "users", res.user.uid), {
-        username,
+        username: username.trim(),
         description,
         email,
         avatar: imgUrl,
