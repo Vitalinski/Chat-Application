@@ -13,6 +13,7 @@ import { db } from "../../lib/firebase";
 import { useChatStore } from "../../lib/chatStore";
 import { useUserStore } from "../../lib/userStore";
 import upload from "../../lib/unload";
+import Overlay from "../Overlay";
 
 const Chat = () => {
   const { chatId, user,  isCurrentUserBlocked, isReceiverBlocked } = useChatStore();
@@ -24,7 +25,7 @@ const Chat = () => {
     file:null,
     url:'',
   });
-
+  const emojiPickerRef = useRef(null);
   const endRef = useRef(null);
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -35,6 +36,18 @@ const Chat = () => {
     });
     return () => onSub();
   }, [chatId]);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (emojiPickerRef.current && !emojiPickerRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   const handleImg = (e) => {
     if (e.target.files[0]) {
       setImg({
@@ -150,13 +163,17 @@ const Chat = () => {
           onChange={(e) => setText(e.target.value)}
           disabled={ isCurrentUserBlocked || isReceiverBlocked}
         />
+     
         <div className={styles.bottom__emoji}>
           <img
             src="./emoji.png"
             alt=""
             onClick={() => setOpen((prev) => !prev)}
           />
-          <div className={styles.bottom__emoji_picker}>
+
+          <div ref={emojiPickerRef} className={styles.bottom__emoji_picker} >
+
+
             <EmojiPicker open={open} onEmojiClick={handleEmoji} />
           </div>
         </div>

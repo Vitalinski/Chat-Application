@@ -4,6 +4,7 @@ import { db } from '../../../lib/firebase'
 import { useState } from 'react'
 import { useUserStore } from '../../../lib/userStore'
 import { toast } from 'react-toastify'
+import Overlay from '../../Overlay'
 
 const AddUser = ({setAddMode}) => {
   const [user, setUser] =  useState(null)
@@ -23,6 +24,10 @@ setUser(querySnapShot.docs[0].data())
     catch(err){
 console.log(err)
     }
+  }
+  const handleClose = (e)=>{
+    e.stopPropagation()
+    setAddMode(false)
   }
 
   const handleAdd = async () => {
@@ -73,9 +78,12 @@ console.log(err)
   };
 
   return (
-    <div className={styles.addUser}>
+<Overlay onClick={handleClose}>
+
+
+    <div className={styles.addUser} onClick={(e)=>e.stopPropagation()}>
         <form onSubmit={handleSearch}>
-          <button type='button' className={styles.close} onClick={()=>setAddMode(false)}>x</button>
+          <button type='button' className={styles.close} onClick={handleClose}>x</button>
             <input type="text" placeholder='Username' name='username' />
             <button>Search</button>
         </form>
@@ -89,6 +97,7 @@ console.log(err)
 <button onClick={handleAdd}>Add User</button>
         </div>}
     </div>
+</Overlay>
   )
 }
 
