@@ -1,0 +1,18 @@
+.option {
+  &_title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+  }
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+  padding: 8px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.664);
+
+  cursor: pointer;
+}

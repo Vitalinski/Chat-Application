@@ -1,13 +1,32 @@
-import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { useChatStore } from "../../lib/chatStore";
 import { auth, db } from "../../lib/firebase";
 import { useUserStore } from "../../lib/userStore";
 import styles from "./Detail.module.scss";
+import Option from "../Option";
+import { useEffect, useState } from "react";
 
 const Detail = () => {
-  const { chatId, user, isCurrentUserBlocked, isReceiverBlocked, changeBlock, resetChat } =
-    useChatStore();
+  const {
+    chatId,
+    user,
+    isCurrentUserBlocked,
+    isReceiverBlocked,
+    changeBlock,
+    resetChat,
+  } = useChatStore();
   const { currentUser } = useUserStore();
+
+
+const [chat, setChat] = useState()
+  useEffect(() => {
+    const onSub = onSnapshot(doc(db, "chats", chatId), (res) => {
+      setChat(res.data());
+    });
+    return () => onSub();
+  }, [chatId]);
+
+
   const handleBlock = async () => {
     if (!user) return;
     const userDocRef = doc(db, "users", currentUser.id);
@@ -22,7 +41,7 @@ const Detail = () => {
   };
   const handleLogout = () => {
     auth.signOut();
-    resetChat()
+    resetChat();
   };
   return (
     <div className={styles.detail}>
@@ -32,80 +51,38 @@ const Detail = () => {
         <p>{user?.description}</p>
       </div>
       <div className={styles.info}>
-        <div className={styles.info__option}>
-          <div className={styles.info__option_title}>
-            <span>Chat Settings</span>
-            <img src="./arrowDown.png" alt="" className={styles.icon} />
-          </div>
-        </div>
+        <Option title={"Chat settings"}></Option>
 
-        <div className={styles.info__option}>
-          <div className={styles.info__option_title}>
-            <span>Privacy and help</span>
-            <img src="./arrowDown.png" alt="" className={styles.icon} />
-          </div>
-        </div>
+        <Option title={"Privacy and help"}></Option>
 
-        <div className={styles.info__option}>
-          <div className={styles.info__option_title}>
-            <span>Shared photos</span>
-            <img src="./arrowDown.png" alt="" className={styles.icon} />
-          </div>
-          <div className={styles.photos}>
-            <div className={styles.photos__item}>
-              <div className={styles.photos__item_detail}>
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6bbriZBZR6lpx0Zbg1asMMPRT0zkWfgZsnA&s"
-                  alt=""
-                />
-                <span>photo_name.png </span>
-              </div>
+        <Option title={"Shared photos"}>
+        <div className={styles.photos}>
+
+        {chat?.messages?.map((message, i) => (
+          message.img &&  <div
+          className={styles.photos__item}
+            key={message?.createAt || i}
+          >
+            <div className={styles.photos__item_detail}>
+             <img src={message.img.url} />
+              <span>{message.img.name} </span>
+              <a href={message.img.url} target="blank" download>
               <img src="./download.png" alt="" className={styles.icon} />
-            </div>
+            </a>                     </div>
 
-            <div className={styles.photos__item}>
-              <div className={styles.photos__item_detail}>
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6bbriZBZR6lpx0Zbg1asMMPRT0zkWfgZsnA&s"
-                  alt=""
-                />
-                <span>photo_name.png </span>
-              </div>
-              <img src="./download.png" alt="" className={styles.icon} />
-            </div>
-
-            <div className={styles.photos__item}>
-              <div className={styles.photos__item_detail}>
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6bbriZBZR6lpx0Zbg1asMMPRT0zkWfgZsnA&s"
-                  alt=""
-                />
-                <span>photo_name.png </span>
-              </div>
-              <img src="./download.png" alt="" className={styles.icon} />
-            </div>
-
-            <div className={styles.photos__item}>
-              <div className={styles.photos__item_detail}>
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6bbriZBZR6lpx0Zbg1asMMPRT0zkWfgZsnA&s"
-                  alt=""
-                />
-                <span>photo_name.png </span>
-              </div>
-              <img src="./download.png" alt="" className={styles.icon} />
-            </div>
           </div>
-        </div>
-
-        <div className={styles.info__option}>
-          <div className={styles.info__option_title}>
-            <span>Shared Files</span>
-            <img src="./arrowDown.png" alt="" className={styles.icon} />
+        ))}
+          
+           
           </div>
-        </div>
+        </Option>
 
-        <button onClick={handleBlock}>
+        <Option title={"Shared files"}></Option>
+
+        
+      </div>
+      <div className={styles.bottom}>
+      <button onClick={handleBlock}>
           {isCurrentUserBlocked
             ? "You are blocked"
             : isReceiverBlocked
@@ -115,7 +92,7 @@ const Detail = () => {
         <button className={styles.logout} onClick={handleLogout}>
           Log out
         </button>
-      </div>
+        </div>
     </div>
   );
 };

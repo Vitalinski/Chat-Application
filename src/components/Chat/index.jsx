@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./Chat.module.scss";
 import EmojiPicker from "emoji-picker-react";
 import classNames from "classnames";
+import { format } from "timeago.js";
 import {
   arrayUnion,
   doc,
@@ -13,12 +14,11 @@ import { db } from "../../lib/firebase";
 import { useChatStore } from "../../lib/chatStore";
 import { useUserStore } from "../../lib/userStore";
 import upload from "../../lib/unload";
-import Overlay from "../Overlay";
 
 const Chat = () => {
   const { chatId, user,  isCurrentUserBlocked, isReceiverBlocked } = useChatStore();
   const { currentUser } = useUserStore();
-  const [chat, setChat] = useState(null);
+  const [chat, setChat] = useState();
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
   const [img, setImg] = useState({
@@ -29,7 +29,7 @@ const Chat = () => {
   const endRef = useRef(null);
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
-  });
+  },[chat?.messages]);
   useEffect(() => {
     const onSub = onSnapshot(doc(db, "chats", chatId), (res) => {
       setChat(res.data());
@@ -65,13 +65,16 @@ const Chat = () => {
     try {
       if(img.file){
         imgUrl =  await upload(img.file)
+        console.log('My image Url', imgUrl)
       }
       await updateDoc(doc(db, "chats", chatId), {
         messages: arrayUnion({
           senderId: currentUser.id,
           text,
           createdAt: new Date(),
-          ...(imgUrl && {img:imgUrl}),
+          ...(imgUrl && {img:{
+            url:imgUrl,
+          name:img.file.name}}),
         }),
       });
       const userIDs = [currentUser.id, user.id];
@@ -127,9 +130,9 @@ const Chat = () => {
             key={message?.createAt || i}
           >
             <div className={styles.center__message_texts}>
-              {message.img && <img src={message.img} />}
+              {message.img && <img src={message.img.url} />}
               <p>{message.text}</p>
-              {/* <span>1 min ago</span> */}
+              <span>{format(message.createdAt.toDate())}</span>
             </div>
           </div>
         ))}
