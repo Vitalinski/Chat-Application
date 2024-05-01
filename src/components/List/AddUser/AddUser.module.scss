@@ -33,6 +33,17 @@
     }
    
   }
+  .noUser {
+    margin-top: 30px;
+p{
+  margin-top: 10px;
+}
+@media screen and (max-width:500px) {
+  margin-top: 20px;
+  font-size: 10px;
+
+}
+  }
   .user {
     margin-top: 50px;
     display: flex;

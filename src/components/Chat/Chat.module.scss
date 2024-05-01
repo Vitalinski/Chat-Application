@@ -60,6 +60,8 @@
 }
 }
 .center {
+    background-color: #fffcfc2d;
+
   padding: 20px;
   flex: 1;
   overflow: scroll;
@@ -99,6 +101,17 @@ span{
             color: black;
 
         }
+    }
+  }
+  .noMessages {
+    margin: auto;
+    text-align: center;
+    p{
+        margin-bottom: 50px;
+    }
+    span{
+        font-size: 24px;
+        font-weight: bold;
     }
   }
 }

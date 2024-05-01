@@ -11,6 +11,7 @@ const AddUser = ({setAddMode}) => {
   const { currentUser } = useUserStore();
   const handleSearch = async(e) =>{
     e.preventDefault()
+    setUser(null)
     const formData = new FormData(e.target)
     const username = formData.get("username")
     try{
@@ -88,14 +89,15 @@ console.log(err)
             <button>Search</button>
         </form>
 
-        {user && <div className={styles.user}>
+        {user ? <div className={styles.user}>
         <div className={styles.detail}>
             <img src={user.avatar || "./avatar.png"} alt="" />
             <span>{user.username}</span>
 
         </div>
 <button onClick={handleAdd}>Add User</button>
-        </div>}
+        </div>:<div className={styles.noUser}><p>No results.</p> 
+        <p>Enter full and  correct nickname.</p> </div>}
     </div>
 </Overlay>
   )

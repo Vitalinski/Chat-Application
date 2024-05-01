@@ -121,7 +121,7 @@ const Chat = () => {
         </div>
       </div>
       <div className={styles.center}>
-        {chat?.messages?.map((message, i) => (
+        {chat?.messages?.length>0? chat?.messages?.map((message, i) => (
           <div
             className={classNames(
               styles.center__message,
@@ -135,7 +135,7 @@ const Chat = () => {
               <span>{format(message.createdAt.toDate())}</span>
             </div>
           </div>
-        ))}
+        )): <div className={styles.noMessages}><p>No messages</p> <p>Send<span> &quot;Hi 👋&ldquo; </span>to start the conversation.</p></div> }
 {img.url &&  <div
             className={classNames(
               styles.center__message,
