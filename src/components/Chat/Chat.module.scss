@@ -145,6 +145,12 @@ img{
     width: 20px;
     height: 20px;
     cursor: pointer;
+  
+}
+.disabled{
+    pointer-events: none;
+   opacity: 0.6;
+
 }
 &__emoji {
   position: relative;

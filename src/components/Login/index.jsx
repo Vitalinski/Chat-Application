@@ -11,6 +11,7 @@ const Login = () => {
     url: "",
   });
   const [loading, setLoading] = useState(false);
+  const registerForm = document.getElementById('registerForm');
   const handleAvatar = (e) => {
     if (e.target.files[0]) {
       setAvatar({
@@ -72,6 +73,8 @@ const Login = () => {
       await setDoc(doc(db, "userchats", res.user.uid), {
         chats: [],
       });
+      registerForm.reset();
+
       toast.success("Account created! You can login now!");
     } catch (error) {
       toast.error(error.message);
@@ -83,7 +86,7 @@ const Login = () => {
     <div className={styles.login}>
       <div className={styles.item}>
         <h2>Welcome back</h2>
-        <form onSubmit={handleLogin}>
+        <form  onSubmit={handleLogin}>
           <input type="text" placeholder="Email" name="email" />
           <input type="text" placeholder="Password" name="password" />
           <button disabled={loading}>
@@ -95,7 +98,7 @@ const Login = () => {
       <div className={styles.separator}></div>
       <div className={styles.item}>
         <h2>Create Account</h2>
-        <form onSubmit={handleRegister}>
+        <form id="registerForm" onSubmit={handleRegister}>
           <label htmlFor="file">
             <img src={avatar.url || "./avatar.png"} alt="" />
             Upload your avatar

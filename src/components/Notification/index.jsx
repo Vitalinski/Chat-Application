@@ -2,8 +2,12 @@ import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 const Notification = () => {
   return (
-    <div>
-        <ToastContainer position="bottom-right"/>
+    <div style={{
+      position:'relative'
+    }} >
+        <ToastContainer style={{
+overflow: "hidden",
+  }} position="bottom-right" />
     </div>
   )
 }
