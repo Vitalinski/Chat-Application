@@ -39,14 +39,14 @@
     padding: 10px;
     border-radius: 10px;
     background-color: #ffffff9c;
-    div{
+    div {
       font-weight: bold;
       font-size: 18px;
       margin-bottom: 5px;
     }
-p{
-  margin-bottom: 5px;
-}
+    p {
+      margin-bottom: 5px;
+    }
   }
 }
 
@@ -74,9 +74,9 @@ p{
       }
       span {
         flex: 1;
-    text-wrap: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+        text-wrap: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         font-size: 14px;
         font-weight: 300;
       }

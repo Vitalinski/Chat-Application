@@ -1,13 +1,14 @@
-import ChatList from "./ChatList"
-import styles from "./List.module.scss"
-import UserInfo from "./UserInfo"
+import ChatList from './ChatList';
+import styles from './List.module.scss';
+import UserInfo from './UserInfo';
+
 const List = () => {
   return (
     <div className={styles.list}>
-        <UserInfo/>
-        <ChatList/>
+      <UserInfo />
+      <ChatList />
     </div>
-  )
-}
+  );
+};
 
-export default List
+export default List;

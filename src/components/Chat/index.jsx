@@ -1,57 +1,48 @@
-import { useEffect, useRef, useState } from "react";
-import styles from "./Chat.module.scss";
-import EmojiPicker from "emoji-picker-react";
-import classNames from "classnames";
-import { format } from "timeago.js";
-import {
-  arrayUnion,
-  doc,
-  getDoc,
-  onSnapshot,
-  updateDoc,
-} from "firebase/firestore";
-import { db } from "../../lib/firebase";
-import { useChatStore } from "../../lib/chatStore";
-import { useUserStore } from "../../lib/userStore";
-import upload from "../../lib/unload";
+import classNames from 'classnames';
+import EmojiPicker from 'emoji-picker-react';
+import { arrayUnion, doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { useEffect, useRef, useState } from 'react';
+import { format } from 'timeago.js';
+
+import { useChatStore } from '../../store/chatStore';
+import { db } from '../../store/firebase';
+import upload from '../../store/unload';
+import { useUserStore } from '../../store/userStore';
+import styles from './Chat.module.scss';
 
 const Chat = () => {
-  const { chatId, user, isCurrentUserBlocked, isReceiverBlocked } =
-    useChatStore();
+  const { chatId, user, isCurrentUserBlocked, isReceiverBlocked } = useChatStore();
   const { currentUser } = useUserStore();
   const [chat, setChat] = useState();
   const [open, setOpen] = useState(false);
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const [img, setImg] = useState({
     file: null,
-    url: "",
+    url: '',
   });
   const emojiPickerRef = useRef(null);
   const endRef = useRef(null);
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: "smooth" });
+    endRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chat?.messages]);
   useEffect(() => {
-    const onSub = onSnapshot(doc(db, "chats", chatId), (res) => {
+    const onSub = onSnapshot(doc(db, 'chats', chatId), (res) => {
       setChat(res.data());
     });
     return () => onSub();
   }, [chatId]);
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        emojiPickerRef.current &&
-        !emojiPickerRef.current.contains(event.target)
-      ) {
+      if (emojiPickerRef.current && !emojiPickerRef.current.contains(event.target)) {
         setOpen(false);
       }
     };
 
     if (open) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
     }
-        return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [open]);
   const handleImg = (e) => {
@@ -66,14 +57,13 @@ const Chat = () => {
     setText((prev) => prev + e.emoji);
   };
   const handleSend = async () => {
-    if (text === "") return;
+    if (text === '') return;
     let imgUrl = null;
     try {
       if (img.file) {
         imgUrl = await upload(img.file);
-        console.log("My image Url", imgUrl);
       }
-      await updateDoc(doc(db, "chats", chatId), {
+      await updateDoc(doc(db, 'chats', chatId), {
         messages: arrayUnion({
           senderId: currentUser.id,
           text,
@@ -88,13 +78,11 @@ const Chat = () => {
       });
       const userIDs = [currentUser.id, user.id];
       userIDs.forEach(async (id) => {
-        const userChatRef = doc(db, "userchats", id);
+        const userChatRef = doc(db, 'userchats', id);
         const userChatSnapshot = await getDoc(userChatRef);
         if (userChatSnapshot.exists()) {
           const userChatData = userChatSnapshot.data();
-          const chatIndex = userChatData.chats.findIndex(
-            (c) => c.chatId === chatId
-          );
+          const chatIndex = userChatData.chats.findIndex((c) => c.chatId === chatId);
           userChatData.chats[chatIndex].lastMessage = text;
           userChatData.chats[chatIndex].isSeen = id === currentUser.id;
           userChatData.chats[chatIndex].updatedAt = Date.now();
@@ -109,24 +97,24 @@ const Chat = () => {
     }
     setImg({
       file: null,
-      url: "",
+      url: '',
     });
-    setText("");
+    setText('');
   };
   return (
     <div className={styles.chat}>
       <div className={styles.top}>
         <div className={styles.top__user}>
-          <img src={user?.avatar || "./avatar.png"} alt="" />
+          <img src={user?.avatar || './avatar.png'} alt='' />
           <div className={styles.top__texts}>
             <span>{user?.username}</span>
             <p>{user?.description}</p>
           </div>
         </div>
         <div className={styles.top__icons}>
-          <img src="./phone.png" alt="" />
-          <img src="./video.png" alt="" />
-          <img src="./info.png" alt="" />
+          <img src='./phone.png' alt='' />
+          <img src='./video.png' alt='' />
+          <img src='./info.png' alt='' />
         </div>
       </div>
       <div className={styles.center}>
@@ -134,8 +122,7 @@ const Chat = () => {
           chat?.messages?.map((message, i) => (
             <div
               className={classNames(styles.center__message, {
-                [styles.center__message_own]:
-                  message.senderId === currentUser.id,
+                [styles.center__message_own]: message.senderId === currentUser.id,
               })}
               key={message?.createAt || i}
             >
@@ -148,19 +135,14 @@ const Chat = () => {
           ))
         ) : (
           <div className={styles.noMessages}>
-            <p>No messages</p>{" "}
+            <p>No messages</p>{' '}
             <p>
               Send<span> &quot;Hi 👋&ldquo; </span>to start the conversation.
             </p>
           </div>
         )}
         {img.url && (
-          <div
-            className={classNames(
-              styles.center__message,
-              styles.center__message_own
-            )}
-          >
+          <div className={classNames(styles.center__message, styles.center__message_own)}>
             <div className={styles.center__message_texts}>
               <img src={img.url} />
             </div>
@@ -174,26 +156,19 @@ const Chat = () => {
             className={classNames({
               [styles.disabled]: isCurrentUserBlocked || isReceiverBlocked,
             })}
-            htmlFor="file"
+            htmlFor='file'
           >
-            <img src="./img.png" alt="" />
+            <img src='./img.png' alt='' />
           </label>
-          <input
-            type="file"
-            id="file"
-            style={{ display: "none" }}
-            onChange={handleImg}
-          />
-          {/* <img src="./camera.png" alt="" /> */}
-          {/* <img src="./mic.png" alt="" /> */}
+          <input type='file' id='file' style={{ display: 'none' }} onChange={handleImg} />
         </div>
         <input
           value={text}
-          type="text"
+          type='text'
           placeholder={
             isCurrentUserBlocked || isReceiverBlocked
-              ? "You can not send a message"
-              : "Type a message..."
+              ? 'You can not send a message'
+              : 'Type a message...'
           }
           onChange={(e) => setText(e.target.value)}
           disabled={isCurrentUserBlocked || isReceiverBlocked}
@@ -204,12 +179,12 @@ const Chat = () => {
             className={classNames({
               [styles.disabled]: isCurrentUserBlocked || isReceiverBlocked,
             })}
-            src="./emoji.png"
-            alt=""
+            src='./emoji.png'
+            alt=''
             onClick={() => setOpen((prev) => !prev)}
           />
 
-          <div  className={styles.bottom__emoji_picker}>
+          <div className={styles.bottom__emoji_picker}>
             <EmojiPicker open={open} onEmojiClick={handleEmoji} />
           </div>
         </div>

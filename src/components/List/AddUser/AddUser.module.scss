@@ -1,9 +1,8 @@
-
 .addUser {
-    width: max-content;
-    height: max-content;
+  width: max-content;
+  height: max-content;
   padding: 40px;
-  background-color:  #cfcecee1;
+  background-color: #cfcecee1;
   border-radius: 10px;
   position: absolute;
   top: 0;
@@ -11,7 +10,7 @@
   left: 0;
   right: 0;
   margin: auto;
- 
+
   .close {
     position: absolute;
     top: 5px;
@@ -20,29 +19,26 @@
     background-color: rgb(54, 48, 48);
     font-weight: bold;
   }
-  form{
+  form {
     display: flex;
     gap: 10px;
-    input{
-    
-        padding: 10px;
-        border-radius: 10px;
-        bottom: none;
-        outline: none;
-        background-color:  #f7f0f0;
+    input {
+      padding: 10px;
+      border-radius: 10px;
+      bottom: none;
+      outline: none;
+      background-color: #f7f0f0;
     }
-   
   }
   .noUser {
     margin-top: 30px;
-p{
-  margin-top: 10px;
-}
-@media screen and (max-width:500px) {
-  margin-top: 20px;
-  font-size: 10px;
-
-}
+    p {
+      margin-top: 10px;
+    }
+    @media screen and (max-width: 500px) {
+      margin-top: 20px;
+      font-size: 10px;
+    }
   }
   .user {
     margin-top: 50px;
@@ -50,48 +46,44 @@ p{
     align-items: center;
     justify-content: space-between;
     .detail {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-      img{
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      img {
         width: 50px;
         height: 50px;
         border-radius: 50%;
         object-fit: cover;
       }
     }
-   
   }
-  button{
-    background-color: rgba(49, 49, 49, 0.6117647059);;
+  button {
+    background-color: rgba(49, 49, 49, 0.6117647059);
     color: white;
-    padding: 10px 20px ;
+    padding: 10px 20px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
-}
-@media screen and (max-width:500px) {
-  padding: 25px;
-  button{
-    font-size: 10px;
-    padding: 8px;
   }
-  form input{
-    padding: 5px;
-    width: 150px;
-  }
-  .close{
-    padding: 3px 5px;
-  }
-  .user{
-    margin-top: 20px;
-    .detail img{
-      height: 30px;
-      width: 30px;
-
+  @media screen and (max-width: 500px) {
+    padding: 25px;
+    button {
+      font-size: 10px;
+      padding: 8px;
     }
- 
+    form input {
+      padding: 5px;
+      width: 150px;
+    }
+    .close {
+      padding: 3px 5px;
+    }
+    .user {
+      margin-top: 20px;
+      .detail img {
+        height: 30px;
+        width: 30px;
+      }
+    }
   }
 }
-}
-

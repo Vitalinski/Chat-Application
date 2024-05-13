@@ -2,43 +2,39 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-    &::-webkit-scrollbar {
-      width: 6px;
-    
-    }
-    &::-webkit-scrollbar-thumb {
-      background: #494848cc;
-      border-radius: 10px;
-    }
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+    Verdana, sans-serif;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #494848cc;
+    border-radius: 10px;
+  }
 }
-body{
-  background-image: url('public/background.avif' ) ;
+body {
+  background-image: url('public/background.avif');
   background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  
-  
 }
-.container{
-width: 90vw;
-height: 90vh;
-background-color: #ffffff6b;
-border-radius: 12px;
-backdrop-filter: blur(19px) saturate(180%);
-border: 1px solid #ffffff5b;
-box-shadow: 0px 0px 50px 1px rgba(255, 255, 255, 0.719);
-display: flex;
-overflow: auto;
+.container {
+  width: 90vw;
+  height: 90vh;
+  background-color: #ffffff6b;
+  border-radius: 12px;
+  backdrop-filter: blur(19px) saturate(180%);
+  border: 1px solid #ffffff5b;
+  box-shadow: 0px 0px 50px 1px rgba(255, 255, 255, 0.719);
+  display: flex;
+  overflow: auto;
 }
-.loading{
+.loading {
   padding: 30px;
   background-color: #ffffff9c;
   border-radius: 10px;
   font-size: 32px;
   font-weight: bold;
-
 }

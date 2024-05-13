@@ -6,7 +6,7 @@
   @media screen and (max-width: 500px) {
     .user {
       font-size: 12px;
-      img{
+      img {
         width: 40px;
         height: 40px;
       }
@@ -17,22 +17,22 @@
         width: 16px;
         height: 16px;
         cursor: pointer;
-    
-       
       }
     }
-    .tooltip_text{
+    .tooltip_text {
       font-size: 12px;
       width: 40vw;
       word-wrap: anywhere;
     }
-    button{
+    button {
       padding: 8px 10px;
       font-size: 12px;
-  
     }
   }
-
+  @media screen and (max-width: 354px) {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 .user {
   display: flex;
@@ -52,8 +52,6 @@
     width: 20px;
     height: 20px;
     cursor: pointer;
-
-   
   }
 }
 
@@ -61,20 +59,20 @@
   position: relative;
 
   &_text {
-    background-color: #333333; 
-    color: #FFFFFF; 
-    font-size: 16px; 
-    line-height: 20px; 
-    font-weight: 400; 
-    text-transform: none; 
-    padding: 20px 18px 18px 22px; 
-    border-radius: 10px; 
+    background-color: #333333;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+    text-transform: none;
+    padding: 20px 18px 18px 22px;
+    border-radius: 10px;
 
     width: 256px;
-    position: absolute; 
-    z-index: 1; 
-    transform: translateX(-50%); 
-    display: none; 
+    position: absolute;
+    z-index: 1;
+    transform: translateX(-50%);
+    display: none;
   }
   .tooltip_icon:hover + .tooltip_text {
     display: block;
@@ -89,6 +87,7 @@ button {
   cursor: pointer;
   border-radius: 5px;
   font-size: 16px;
+  white-space: nowrap;
 
   &:hover {
     background-color: rgb(8, 41, 148);
