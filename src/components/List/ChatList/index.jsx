@@ -69,7 +69,7 @@ const ChatList = () => {
           className={styles.add}
         />
       </div>
-      {filteredChats.map((chat) => (
+      {filteredChats.length>0? filteredChats.map((chat) => (
         <div
           className={styles.item}
           style={{
@@ -95,7 +95,7 @@ const ChatList = () => {
             <p>{chat.lastMessage}</p>
           </div>
         </div>
-      ))}
+      )):<div  className={styles.nochats}>No chats</div>}
 
       {addMode && <AddUser setAddMode = {setAddMode} />}
     </div>

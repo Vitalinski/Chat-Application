@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { useChatStore } from "../../../lib/chatStore";
 import { auth, db } from "../../../lib/firebase";
 import { useUserStore } from "../../../lib/userStore";
@@ -26,7 +26,6 @@ const UserInfo = () => {
     url: currentUser.avatar,
   });
 
-
   const handleAvatar = (e) => {
     if (e.target.files[0]) {
       setAvatar({
@@ -39,19 +38,18 @@ const UserInfo = () => {
     if (!isEditMode) {
       setIsEditMode(true);
     } else {
-      const newUserName = username.trim()
-const newDescription = description.trim()
+      const newUserName = username.trim();
+      const newDescription = description.trim();
       try {
-
-        if (!newUserName || !newDescription)return toast.warn("Your name and description can`t be empty!");
-        
-
-
+        if (!newUserName || !newDescription)
+          return toast.warn("Your name and description can`t be empty!");
 
         const usersRef = collection(db, "users");
         const q = query(usersRef, where("username", "==", newUserName));
         const querySnapshot = await getDocs(q);
-        const existingUser = querySnapshot.docs.find(doc => doc.data().username === newUserName);
+        const existingUser = querySnapshot.docs.find(
+          (doc) => doc.data().username === newUserName
+        );
         if (existingUser && existingUser.id !== currentUser.id) {
           return toast.warn("Select another username");
         }
@@ -60,18 +58,16 @@ const newDescription = description.trim()
 
         await updateDoc(doc(usersRef, currentUser.id), {
           avatar: imgUrl || currentUser.avatar,
-          username:newUserName,
+          username: newUserName,
           description: newDescription,
         });
 
         toast.success("Your data was updated!");
         setIsEditMode(false);
-
       } catch (error) {
         toast.error(error.message);
-      } 
+      }
     }
-
   };
 
   return (
@@ -79,7 +75,10 @@ const newDescription = description.trim()
       <div className={styles.user}>
         {!isEditMode ? (
           <>
-            <img src={avatar.url|| currentUser.avatar || "./avatar.png"} alt="" />
+            <img
+              src={avatar.url || currentUser.avatar || "./avatar.png"}
+              alt=""
+            />
             <div>
               <h2>{username}</h2>
               <p>{description}</p>
@@ -114,19 +113,28 @@ const newDescription = description.trim()
         )}
       </div>
 
-      {!chatId ? (
-        <button onClick={() => auth.signOut()}>Log out</button>
-      ) : (
-        <div className={styles.icons}>
-          {/* <img src="./more.png" alt="" /> */}
-          {/* <img src="./video.png" alt="" /> */}
-          <img
-            src={isEditMode ? "./arrowDown.png" : "./edit.png"}
-            alt=""
-            onClick={editUserData}
-          />
-        </div>
-      )}
+      <div className={styles.icons}>
+        <img
+          src={isEditMode ? "./arrowDown.png" : "./edit.png"}
+          alt=""
+          onClick={editUserData}
+        />
+        {!chatId && (
+          <>
+            <div className={styles.tooltip}>
+              <img src="./info.png" alt="" className={styles.tooltip_icon} />
+              <span className={styles.tooltip_text}>
+                If you don&apos;t have any chats yet, you can add a chat by
+                clicking &quot;+&ldquo; and entering the user&apos;s exact
+                nickname. <br/><br/>To test the application, you can add
+                &quot;Tomek&ldquo; or create another account of your own and add
+                it as a friend.
+              </span>
+            </div>
+            <button onClick={() => auth.signOut()}>Log out</button>
+          </>
+        )}
+      </div>
     </div>
   );
 };

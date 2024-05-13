@@ -11,6 +11,21 @@
         height: 40px;
       }
     }
+    .icons {
+      gap: 10px;
+      & img {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+    
+       
+      }
+    }
+    .tooltip_text{
+      font-size: 12px;
+      width: 40vw;
+      word-wrap: anywhere;
+    }
     button{
       padding: 8px 10px;
       font-size: 12px;
@@ -37,8 +52,35 @@
     width: 20px;
     height: 20px;
     cursor: pointer;
+
+   
   }
 }
+
+.tooltip {
+  position: relative;
+
+  &_text {
+    background-color: #333333; 
+    color: #FFFFFF; 
+    font-size: 16px; 
+    line-height: 20px; 
+    font-weight: 400; 
+    text-transform: none; 
+    padding: 20px 18px 18px 22px; 
+    border-radius: 10px; 
+
+    width: 256px;
+    position: absolute; 
+    z-index: 1; 
+    transform: translateX(-50%); 
+    display: none; 
+  }
+  .tooltip_icon:hover + .tooltip_text {
+    display: block;
+  }
+}
+
 button {
   background-color: #29324e;
   color: white;
