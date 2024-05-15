@@ -5,14 +5,7 @@
   border-left: 1px solid #ffffff5b;
   border-right: 1px solid #ffffff5b;
   height: 100%;
-  @media screen and (max-width: 1224px) {
-    .center__message_texts {
-      img {
-        max-width: 200px;
-        max-height: 200px;
-      }
-    }
-  }
+ 
 }
 .top {
   padding: 20px;
@@ -73,8 +66,9 @@
       flex-direction: column;
       gap: 5px;
       img {
-        width: 100%;
-        height: 100%;
+        width: 20vw;
+        min-width: 150px;
+        min-height: 150px;
         border-radius: 10px;
         object-fit: cover;
       }
