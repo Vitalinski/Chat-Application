@@ -32,9 +32,9 @@ const Login = () => {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       toast.error(error.message);
-    } finally {
       setLoading(false);
-    }
+
+    } 
   };
 
   const handleRegister = async (e) => {
@@ -76,7 +76,10 @@ const Login = () => {
         chats: [],
       });
       registerForm.reset();
-
+      setAvatar({
+        file: null,
+        url: '',
+      })
       toast.success('Account created! You can login now!');
     } catch (error) {
       toast.error(error.message);
